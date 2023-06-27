@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Menu</title>
+   <style>
+    .main{
+        background-color: goldenrod;
+        font-family: cursive;
+
+        text-align: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        
+    }
+    .dishes{
+        display: flex;
+        flex-direction: column;
+        justify-content:space-evenly;
+        display: block;
+        
+        /* justify-content: space-between; */
+    }
+    .dishes img{
+        width: 200px;
+        height: 200px;
+        border-radius: 100px 100px 100px 100px ;
+        margin: 20 auto;
+        /* height: auto; */
+        margin-left: 40px;
+        margin-bottom: 40px;
+        /* display: flex; */
+        /* flex-direction: column; */
+        
+    }
+    table{
+                margin-top: 0px;
+            }
+    .search-box{
+                border-radius: 5px;
+                background-color:whitesmoke;
+                width:200px;
+                text-align: center;
+                /* border: #000; */
+                border: none;
+            }
+            .row{
+                display: flex;
+                align-items: center;
+            }
+            
+            .result-box ul li{
+                list-style: none;
+                 border-radius: 3px; 
+            }
+            input{
+                background: transparent;
+                border: 0; 
+                /* outline: 0; */
+                
+            }
+            .result-box ul li:hover{
+                background: #e9f3ff;
+                width: 50%;
+            }
+             .hi table,td,tr{
+                
+                 margin-left: 3px; 
+            } 
+            td,a{
+                text-decoration: none;
+            }
+            #x{
+                background-color: goldenrod;
+                border: none;
+            }
+   </style>
+
+</head>
+<body style="background-color: goldenrod;text-align: center;">
+    <div class="main"  >
+        
+        <h1>MENU</h1>
+        
+            <table width="45%" class="hi" align="right">
+                <tr>
+                    
+                    <td>
+                        <form>
+                            <div class="search-box">
+                            <div class="row">
+                                <center>
+                            <input type="text" id="inputbox" placeholder="Search items" autocomplete="off" size="25"/>
+                        </center>
+                            </div></div>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    
+                    <td><div class="search-box">
+                        <div class="row">
+                        <div class="result-box">
+                        
+                       </div></div></div></td>
+                </tr>
+            </table>
+        
+      
+
+        </div>
+       
+        
+    
+    <div class="dishes">
+        <div>
+            <img src="dosa.jpg" alt="dosa">
+            <img src="starters.jpg" alt="">
+            <img src="biryani.jpg" alt="biryani">
+
+        </div>
+        <div>
+            
+         <img src="cake.jpg" alt="">
+         <img src="icecream.jpg" alt="icecream">
+         <img src="drinks.jpg" alt="">
+        </div>
+   
+         
+
+    
+    <script>
+        let arr=['biryani','icecream','cakes','starters','tiffins','drinks'];
+        const res=document.querySelector(".result-box");
+        const inputBox=document.getElementById("inputbox");
+        inputBox.onkeyup=function(){
+            let result=[];
+            let input=inputBox.value;
+            if(input.length){
+                result=arr.filter((k)=>{
+                    return k.toLowerCase().includes(input.toLowerCase());
+                });
+            }
+            display(result);
+
+            if(!result.length){
+                res.innerHTML='';
+            }
+        }
+        function display(result){
+            const content=result.map((list)=>{
+                return "<li onclick=at(this)>"+list+"</li>";
+            });
+
+            res.innerHTML="<ul>"+content.join('')+"</ul>";
+        }
+        function at(list)
+        {
+            inputBox.value=list.innerHTML;
+            res.innerHTML='';
+            if(inputBox.value=='biryani')
+            {
+                location.assign("biryani.html");
+            }
+            if(inputBox.value=='icecream')
+            {
+                location.assign("icecream.html");
+            }
+            if(inputBox.value=='cakes')
+            {
+                location.assign("cakes.html");
+            }
+            if(inputBox.value=='starters')
+            {
+                location.assign("starters.html");
+            }
+            if(inputBox.value=='tiffins')
+            {
+                location.assign("tiffins.html");
+            }
+            if(inputBox.value=='drinks')
+            {
+                location.assign("drinks.html");
+            }
+        }
+        function addToCart(productName, imageSrc, price) {
+            var cart = document.getElementById("cart-items");
+
+            // Create a new cart item
+            var cartItem = document.createElement("div");
+            cartItem.classList.add("contain");
+
+            // Product image
+            var productImage = document.createElement("img");
+            productImage.src = imageSrc;
+            productImage.alt = productName;
+            // productImage.classList.add("contain")
+            cartItem.appendChild(productImage);
+            
+            // Product price
+            var productPrice = document.createElement("span");
+            productPrice.textContent = "Price: " + price;
+            productPrice.classList.add("y")
+            cartItem.appendChild(productPrice);
+            // Remove button
+            var removeButton = document.createElement("button");
+            removeButton.textContent = "Remove";
+            removeButton.classList.add("remove")
+            cartItem.appendChild(removeButton);
+            removeButton.addEventListener("click", function () {
+                cart.removeChild(cartItem);
+            });
+            // Add the cart item to the cart
+            cart.appendChild(cartItem);
+         }
+    </script>
+</body>
+</html>
