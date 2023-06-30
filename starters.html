@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    
+    <title>Document</title>
+    <style>
+        .main_heading {
+             top: 0; 
+            padding: 15px;
+            /* text-align: center; */
+            background-color: darkgoldenrod;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+        .split {
+            height: 80%;
+            position: fixed;
+            /* z-index: 1; */
+            /* top: 0; */
+            overflow-x: hidden;
+            padding-top: 20px;
+            margin: 5px;
+            /* margin-top: 140px; */
+        }
+        .right {
+            right: 0;
+            display: flex;
+            flex-direction: row;
+            width: 90%;  
+            margin: 5px;
+             margin-left: 400px; 
+            background-color: orange;
+            float: right;
+        }
+        .add-to-cart {
+        position: absolute;
+        top: 50%;
+        left: 80%;
+        transform: translate(-50%, -50%);
+        border: none;
+        padding: 5px;
+        background-color: #ccc;
+       box-sizing: border-box;
+           
+    }
+        #cart{
+            border: 1px solid #ccc;
+            padding: 40spx;
+            margin-bottom: 400px;
+            }
+        #cart-items{
+        display: inline-block;  
+        margin-bottom: 20px;  
+        } 
+        .contain img{
+            height: 150px;
+        }
+        .y{position: relative;
+            bottom: 75px;
+            left: 100px;
+            margin-left: 50px;
+        }
+        .remove{
+            position: relative;
+            bottom: 75px;
+            left: 300px;
+        }
+        .container{
+        position: relative;
+        margin-left: 200px;
+        width: 700px;
+        height: 100px;
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 40px;
+        background-color: orange;
+        padding: 20px;
+        }
+        .container:hover{
+            border: chocolate;
+            border-radius: 20px 20px 20px 20px;
+           
+
+        }
+    </style>
+</head>
+<body style="background-color: orange;">
+    <div id="main"> 
+        <button href="#" id="x"  onclick="showContent('cart')"><i class="fa fa-shopping-cart"></i></button>
+    
+        <h1 style="text-align: center;">Starters</h1>
+    </div>
+       
+   
+    <div class="split right">
+       
+       
+            <div class="content">
+                <div id="cart" style="display: none;" >
+                    <h2 style="text-align: center;">Cart</h2>
+                    <div class="container" id="cart-items"></div>
+                    <div class="container" id="cart-total"></div>
+                    <a class="btn btn-secondary" href="pay.html">Pay Now</a>
+
+                </div>
+            <div>
+                <div class="container" id="Kebab">
+                    <img src="kebab.jpg" height="100px">
+                    <p class="x">kebab <br> Price:200 </p>
+                    <button class="add-to-cart" onclick="addToCart('Kebab','kebab.jpg','200')" >Add to Cart</button>
+                        
+                </div> 
+                <div class="container" id="Chicken Rolls">
+                    <img  src="cr.jpg" height="100px">
+                    <p class="x">Chicken Rolls<br> Price:160 </p>
+                    <button class="add-to-cart" onclick="addToCart('Chicken Rolls','cr.jpg','160')">Add to Cart</button>
+                        
+                </div>
+                <div class="container" id="Paneer Tikka">
+                    <img src="pt.jpg" height="100px">
+                    <p class="x">Paneer Tikka <br> Price:250 </p>
+                    <button class="add-to-cart" onclick="addToCart('Paneer Tikka','pt.jpg','250')">Add to Cart</button>
+                        
+                </div>
+                <div class="container" id="Spring Rolls">
+                    <img src="sr.jpg" height="100px">
+                    <p class="x">Spring Rolls<br> Price:200 </p>
+                    <button class="add-to-cart" onclick="addToCart('Spring Rolls','sr.jpg','200')">Add to Cart</button> 
+                </div>
+               
+        </div>
+        
+           
+        </div>
+        
+        </div>
+        
+
+    </div>
+    <script>
+       function showContent(contentId) {
+            var div = document.getElementById('main');
+            div.innerHTML = '';
+            var contents = document.getElementsByClassName("content")[0].children;
+            for (var i = 0; i < contents.length; i++) {
+                if (contents[i].id === contentId) {
+                    contents[i].style.display = "block";
+                }
+                else {
+                    contents[i].style.display = "none";
+                }
+            }
+        }
+        var tp=0
+        function updateTotal(price){
+            tp+=price;
+        }
+        function dsp(){
+            var cartTotal = document.getElementById("cart-total");
+            cartTotal.textContent="Total Price: Rs."+tp.toFixed(2);
+        }
+        function addToCart(productName, imageSrc, price) {
+            var cart = document.getElementById("cart-items");
+            //var ct = document.getElementById("cart-total");
+
+            // Create a new cart item
+            var cartItem = document.createElement("div");
+            cartItem.classList.add("contain");
+
+            // Product image
+            var productImage = document.createElement("img");
+            productImage.src = imageSrc;
+            productImage.alt = productName;
+            // productImage.classList.add("contain")
+            cartItem.appendChild(productImage);
+            
+            // Product price
+            var productPrice = document.createElement("span");
+            productPrice.textContent = "Price: " + price;
+            productPrice.classList.add("y")
+            cartItem.appendChild(productPrice);
+            
+            // var totalPriceElement = document.createElement("span");
+            // totalPriceElement.textContent = "Total Price: Rs." + tp.toFixed(2);
+            // cartItem.appendChild(totalPriceElement);
+
+
+            // Remove button
+            var removeButton = document.createElement("button");
+            removeButton.textContent = "Remove";
+            removeButton.classList.add("remove")
+            cartItem.appendChild(removeButton);
+            removeButton.addEventListener("click", function () {
+                cart.removeChild(cartItem);
+                updateTotal(-parseFloat(price));
+                dsp();
+            });
+            
+            // Add the cart item to the cart
+            
+            
+            cart.appendChild(cartItem);
+            updateTotal(parseFloat(price));
+            dsp();
+        }
+      
+        
+        
+    </script>
+</body>
+</html>
